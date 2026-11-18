@@ -1,0 +1,14 @@
+program   = { NL } "yo" "chill" NL { statement } "peace" "out" { NL } ;
+statement = declaration | if | while | for | function | return | "bail" | "skip" | assignment | expression , NL ;
+declaration = "vibe" IDENT "=" expr ;
+assignment  = ( IDENT | index ) "=" expr ;
+if       = "maybe" expr "then" NL { statement } [ "otherwise" "maybe" expr "then" NL ... ] [ "otherwise" NL { statement } ] "done" ;
+while    = "keep" "going" "while" expr NL { statement } "done" ;
+for      = "for" "each" IDENT "in" expr NL { statement } "done" ;
+function = "chill" IDENT "(" [ IDENT { "," IDENT } ] ")" NL { statement } "done" ;
+return   = "gimme" [ expr ] ;
+expr = and { "or" and } ; and = not { "and" not } ; not = "not" not | cmp ;
+cmp = add { ("=="|"!="|"<"|"<="|">"|">=") add } ; add = mul { ("+"|"-") mul } ; mul = unary { ("*"|"/"|"%") unary } ;
+unary = "-" unary | postfix ; postfix = primary { "(" [ expr { "," expr } ] ")" | "[" expr "]" } ;
+primary = NUMBER | STRING | "yup" | "nope" | "nada" | IDENT | "(" expr ")" | "[" [ expr { "," expr } ] "]" | "{" [ expr ":" expr { "," expr ":" expr } ] "}" ;
+(* comments start with ~ ; indentation is free-form: blocks are closed by 'done' *)
